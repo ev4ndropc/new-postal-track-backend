@@ -79,7 +79,7 @@ const fetchOneCode = async (code) => {
       }
     })
 
-    xml.evento = xml.evento.reverse()
+    xml.evento = xml.evento
 
     return xml
   })

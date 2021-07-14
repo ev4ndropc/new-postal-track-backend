@@ -21,6 +21,8 @@ module.exports = (request, response, next) => {
     if(err) return response.status(401).json({ ok:false, messsage: 'Token invalid!', notallowed: true })
 
     request.userId = decoded.id
+    request.userEmail = decoded.email
+    request.userToken = decoded.token
 
     return next()
   })

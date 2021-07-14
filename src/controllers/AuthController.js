@@ -39,13 +39,16 @@ module.exports = {
       password: hash,
       phone_number,
       avatar,
-      admin: 2,
+      is_admin: 2,
       balance: 0,
       user_token: v4()
     })
     .into('users')
     .then(result => response.status(200).json({ ok: true, message: 'Account created successfully!', token: generateToken({ id: result.id, email: email }) }))
-    .catch(err => response.status(400).json({ ok: false, message: 'An error has occurred, contact the administrator!' }))
+    .catch(err => {
+      console.log(err)
+      return response.status(400).json({ ok: false, message: 'An error has occurred, contact the administrator!' })
+    })
   },
 
   async signin(request, response) {
@@ -59,13 +62,10 @@ module.exports = {
     if(!user[0])
     return response.status(401).json({ ok: false, message: 'Email or password is incorrect!' })
 
-    console.log(password)
-    console.log(user[0].password)
-
     if(!bcrypt.compareSync(password, user[0].password))
     return response.status(401).json({ ok: false, message: 'Email or password is incorrect!' })
 
-    return response.status(200).json({ ok: true, token: generateToken({ id: user.id, email: user.email }) })
+    return response.status(200).json({ ok: true, token: generateToken({ id: user.id, email: user.email, token: user.user_token }) })
   },
 
 }

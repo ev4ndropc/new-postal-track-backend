@@ -6,7 +6,7 @@ const AuthController = require('../controllers/AuthController')
 
 const Correios = require('../controllers/CorreiosController')
 const Whatsapp = require('../controllers/WhatsappController')
-const Code = require('../controllers/CodeController')
+const Package = require('../controllers/PackageController')
 
 //Auth Routes
 routes.post('/auth/signin', AuthController.signin)
@@ -23,6 +23,6 @@ routes.get('/whatsapp/disconnect/', Whatsapp.Disconnect)
 routes.get('/whatsapp/connect/', Whatsapp.Connect)
 routes.get('/whatsapp/get_qrcode/', Whatsapp.getQrCode)
 
-routes.post('/insert_code', Code.insetCode)
+routes.post('/add/package', Package.addPackage)
 
 module.exports = routes
