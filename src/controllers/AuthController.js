@@ -57,12 +57,12 @@ module.exports = {
     if(!email || !password)
     return response.status(404).json({ ok: false, message: 'Please send email and password!' })
 
-    const user = await database.select().where({ email }).table('users')
+    const user = await database.select().where({ email }).table('users').first()
 
-    if(!user[0])
+    if(!user)
     return response.status(401).json({ ok: false, message: 'Email or password is incorrect!' })
 
-    if(!bcrypt.compareSync(password, user[0].password))
+    if(!bcrypt.compareSync(password, user.password))
     return response.status(401).json({ ok: false, message: 'Email or password is incorrect!' })
 
     return response.status(200).json({ ok: true, token: generateToken({ id: user.id, email: user.email, token: user.user_token }) })

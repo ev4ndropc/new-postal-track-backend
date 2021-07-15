@@ -1,3 +1,4 @@
+const { attachPaginate } = require('knex-paginate');
 var knex = require('knex')({
   client: 'mysql2',
   connection: {
@@ -7,6 +8,8 @@ var knex = require('knex')({
     database: process.env.DB_NAME
   }
 })
+
+attachPaginate();
 
 
 module.exports = knex

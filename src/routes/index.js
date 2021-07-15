@@ -23,6 +23,8 @@ routes.get('/whatsapp/disconnect/', Whatsapp.Disconnect)
 routes.get('/whatsapp/connect/', Whatsapp.Connect)
 routes.get('/whatsapp/get_qrcode/', Whatsapp.getQrCode)
 
-routes.post('/add/package', Package.addPackage)
+routes.post('/add/package', Auth, Package.addPackage)
+routes.get('/list/package', Auth, Package.listPackage)
+routes.delete('/delete/package', Auth, Package.deletePackage)
 
 module.exports = routes
