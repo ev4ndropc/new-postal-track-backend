@@ -25,6 +25,8 @@ routes.get('/whatsapp/get_qrcode/', Whatsapp.getQrCode)
 
 routes.post('/add/package', Auth, Package.addPackage)
 routes.get('/list/package', Auth, Package.listPackage)
+routes.get('/get/package', Auth, Package.getPackage)
 routes.delete('/delete/package', Auth, Package.deletePackage)
+routes.put('/edit/package', Auth, Package.editPackage)
 
 module.exports = routes

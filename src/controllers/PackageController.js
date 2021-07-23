@@ -59,7 +59,46 @@ module.exports = {
             await database.delete().where({ id, user_token: request.userToken }).table('codes')
             return response.status(200).json({ ok: true, messsage: 'Code deleted successfully!' })
         } catch (error) {
-            return response.status(400).json({ ok: true, messsage: 'An error has occurred, please contact our support.' })
+            return response.status(400).json({ ok: false, messsage: 'An error has occurred, please contact our support.' })
+        }
+    },
+
+    async getPackage(request, response) {
+        const { code } = request.query
+
+        try {
+            const data = await database.select().table('codes').where({
+                code,
+                user_token: request.userToken
+            }).first()
+    
+            return response.status(200).json({ ok: true, data })
+        } catch (error) {
+            return response.status(400).json({ ok: false, messsage: 'An error has occurred, please contact our support.' })
+        }
+    },
+
+    async editPackage(request, response) {
+        const { client_name, client_number, code, last_update_hour, last_update_date, status, finished } = request.body
+        
+        if(!client_name || !client_number || !code || !last_update_hour || !last_update_date || !status || !finished)
+        return response.status(401).json({ ok: false, message: 'Please send all necessary fields.' })
+
+        try {
+            await database.update({
+                client_name,
+                client_number,
+                code,
+                last_update_hour,
+                last_update_date, 
+                status,
+                finished
+            }).where({ code, user_token: request.userToken }).table('codes')
+
+            return response.status(200).json({ ok: true, message: 'Code updated successfully!' })
+        } catch (error) {
+            console.log(error)
+            return response.status(400).json({ ok: false, messsage: 'An error has occurred, please contact our support.' })
         }
     }
 }
