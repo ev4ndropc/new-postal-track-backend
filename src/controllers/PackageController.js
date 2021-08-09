@@ -25,6 +25,7 @@ module.exports = {
                 sent_welcome: 'n',
                 allowed: 'y',
                 user_token: request.userToken, 
+                finished: 'n', 
                 status: 'Nenhum dado ainda', 
                 created_at: moment().format() 
 
@@ -51,18 +52,7 @@ module.exports = {
             return response.status(400).json({ ok: false, message: 'An error has occurred, please try again later!' })
         }
     },
-
-    async deletePackage(request, response) {
-        const { id } = request.query
-
-        try {
-            await database.delete().where({ id, user_token: request.userToken }).table('codes')
-            return response.status(200).json({ ok: true, messsage: 'Code deleted successfully!' })
-        } catch (error) {
-            return response.status(400).json({ ok: false, messsage: 'An error has occurred, please contact our support.' })
-        }
-    },
-
+    
     async getPackage(request, response) {
         const { code } = request.query
 
@@ -100,5 +90,80 @@ module.exports = {
             console.log(error)
             return response.status(400).json({ ok: false, messsage: 'An error has occurred, please contact our support.' })
         }
+    },
+
+    async searchPackage(request, response) {
+        const { type, searchFor } = request.query
+
+        if(type == undefined || searchFor == undefined)
+        return response.status(401).json({ ok: false, message: 'Please send all necessary fields.' })
+
+        if(type.trim() == '' || searchFor.trim() == '')
+        return response.status(401).json({ ok: false, message: 'Please send all necessary fields.' })
+
+        switch (type) {
+            case 'client_name':
+                var data = await database.select().where('client_name', 'like', `%${searchFor}%` ).table('codes').where({ user_token: request.userToken })
+                response.status(200).json({ ok: false, data })
+              break;
+            case 'client_number':
+                var data = await database.select().where('client_number', 'like', `%${searchFor}%` ).table('codes').where({ user_token: request.userToken })
+                response.status(200).json({ ok: false, data })
+              break;
+            case 'code':
+                var data = await database.select().where('code', 'like', `%${searchFor}%` ).table('codes').where({ user_token: request.userToken })
+                response.status(200).json({ ok: false, data })
+              break;
+
+            case 'last_update_hour':
+                var data = await database.select().where('last_update_hour', 'like', `%${searchFor}%` ).table('codes').where({ user_token: request.userToken })
+                response.status(200).json({ ok: false, data })
+              break;
+
+            case 'last_update_date':
+                var data = await database.select().where('last_update_date', 'like', `%${searchFor}%` ).table('codes').where({ user_token: request.userToken })
+                response.status(200).json({ ok: false, data })
+              break;
+
+            case 'status':
+                var data = await database.select().where('status', 'like', `%${searchFor}%` ).table('codes').where({ user_token: request.userToken })
+                response.status(200).json({ ok: false, data })
+              break;
+            default:
+              null
+          }
+          
+
+        return
+    },
+
+    async deletePackage(request, response) {
+        const { id } = request.query
+
+        try {
+            await database.delete().where({ id, user_token: request.userToken }).table('codes')
+            return response.status(200).json({ ok: true, messsage: 'Code deleted successfully!' })
+        } catch (error) {
+            return response.status(400).json({ ok: false, messsage: 'An error has occurred, please contact our support.' })
+        }
+    },
+
+    async deleteAllDeliveredPackage(request, response) {
+        try {
+            await database.delete().where({ user_token: request.userToken, finished: 'y' }).table('codes')
+            return response.status(200).json({ ok: true, messsage: 'All code deleted successfully!' })
+        } catch (error) {
+            return response.status(400).json({ ok: false, messsage: 'An error has occurred, please contact our support.' })
+        }
+    },
+
+    async deleteAllPackage(request, response) {
+        try {
+            await database.delete().where({ user_token: request.userToken }).table('codes')
+            return response.status(200).json({ ok: true, messsage: 'All code deleted successfully!' })
+        } catch (error) {
+            return response.status(400).json({ ok: false, messsage: 'An error has occurred, please contact our support.' })
+        }
     }
+
 }

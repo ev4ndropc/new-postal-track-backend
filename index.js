@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const cors = require('cors')
 
 const routes = require('./src/routes')
+require('./src/helpers/Crons')
 
 const app = express()
 app.use(compression())

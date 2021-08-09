@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node index"
+    "dev": "nodemon index"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@adiwajshing/baileys": "^3.4.1",
+    "amqplib": "^0.8.0",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
@@ -19,6 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "fast-xml-parser": "^3.19.0",
     "helmet": "^4.3.1",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.15",
@@ -26,6 +28,7 @@
     "moment": "^2.29.1",
     "mysql2": "^2.2.5",
     "node-fetch": "^2.6.1",
+    "node-pre-gyp": "^0.17.0",
     "redis": "^3.0.2",
     "uuid": "^8.3.2",
     "xml2js": "^0.4.23"
