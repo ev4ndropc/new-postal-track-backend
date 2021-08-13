@@ -104,30 +104,30 @@ module.exports = {
         switch (type) {
             case 'client_name':
                 var data = await database.select().where('client_name', 'like', `%${searchFor}%` ).table('codes').where({ user_token: request.userToken })
-                response.status(200).json({ ok: false, data })
+                response.status(200).json({ ok: true, data })
               break;
             case 'client_number':
                 var data = await database.select().where('client_number', 'like', `%${searchFor}%` ).table('codes').where({ user_token: request.userToken })
-                response.status(200).json({ ok: false, data })
+                response.status(200).json({ ok: true, data })
               break;
             case 'code':
                 var data = await database.select().where('code', 'like', `%${searchFor}%` ).table('codes').where({ user_token: request.userToken })
-                response.status(200).json({ ok: false, data })
+                response.status(200).json({ ok: true, data })
               break;
 
             case 'last_update_hour':
                 var data = await database.select().where('last_update_hour', 'like', `%${searchFor}%` ).table('codes').where({ user_token: request.userToken })
-                response.status(200).json({ ok: false, data })
+                response.status(200).json({ ok: true, data })
               break;
 
             case 'last_update_date':
                 var data = await database.select().where('last_update_date', 'like', `%${searchFor}%` ).table('codes').where({ user_token: request.userToken })
-                response.status(200).json({ ok: false, data })
+                response.status(200).json({ ok: true, data })
               break;
 
             case 'status':
                 var data = await database.select().where('status', 'like', `%${searchFor}%` ).table('codes').where({ user_token: request.userToken })
-                response.status(200).json({ ok: false, data })
+                response.status(200).json({ ok: true, data })
               break;
             default:
               null

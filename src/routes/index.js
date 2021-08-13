@@ -8,6 +8,8 @@ const Correios = require('../controllers/CorreiosController')
 const Whatsapp = require('../controllers/WhatsappController')
 const Package = require('../controllers/PackageController')
 const Queue = require('../controllers/QueueController')
+const UserInfo = require('../controllers/UserInfoController')
+const Collects = require('../controllers/CollectsController')
 
 //Auth Routes
 routes.post('/auth/signin', AuthController.signin)
@@ -36,5 +38,17 @@ routes.delete('/delete/package/all_delivered', Auth, Package.deleteAllDeliveredP
 
 // Queue routes
 routes.get('/queue/get', Queue.autoTrackCode)
+
+// User Info Routes
+routes.get('/get/sales_channel', Auth, UserInfo.getSalesChannel) 
+routes.post('/add/sales_channel', Auth, UserInfo.addSalesChannel) 
+
+// Collects Routes
+routes.post('/add/collect', Auth, Collects.addCollects)
+routes.post('/mark_as_collected/collect', Auth, Collects.markAsCollected)
+routes.post('/mark_as_not_collected/collect', Auth, Collects.markAsNotCollected)
+routes.get('/list/collects', Auth, Collects.listCollects)
+routes.get('/find/collects', Auth, Collects.findCollect)
+routes.delete('/delete/collect', Auth, Collects.deleteCollect)
 
 module.exports = routes
