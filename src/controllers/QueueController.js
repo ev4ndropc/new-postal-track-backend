@@ -1,6 +1,6 @@
 const database = require('../database')
 
-require('../helpers/Worker')
+require('../helpers/Worker/CorreiosWorker')
 
 const { sendToQueue } = require('../helpers/Queue')
 

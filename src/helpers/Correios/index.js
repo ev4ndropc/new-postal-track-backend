@@ -31,6 +31,7 @@ const fetchOneCode = async (code) => {
     var json = parser.parse(dataXML)
     return json['soapenv:Envelope']['soapenv:Body']['ns2:buscaEventosResponse'].return.objeto
   })
+  .catch(err => null)
 }
 
 
@@ -68,6 +69,7 @@ const fetchManyCodes = async (codes) => {
     var json = parser.parse(dataXML)
     return json['soapenv:Envelope']['soapenv:Body']['ns2:buscaEventosListaResponse'].return.objeto
   })
+  .catch(err => null)
 }
 
 module.exports = { fetchOneCode, fetchManyCodes }

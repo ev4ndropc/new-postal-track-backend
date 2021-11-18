@@ -28,8 +28,10 @@
     "moment": "^2.29.1",
     "mysql2": "^2.2.5",
     "node-fetch": "^2.6.1",
+    "node-mailjet": "^3.3.4",
     "node-pre-gyp": "^0.17.0",
     "redis": "^3.0.2",
+    "socket.io": "^4.2.0",
     "uuid": "^8.3.2",
     "xml2js": "^0.4.23"
   }

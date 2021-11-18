@@ -64,7 +64,7 @@ module.exports = {
     
             return response.status(200).json({ ok: true, message: 'Collection added successfully!'})
         } catch (error) {
-            return response.status(400).json({ ok: false, message: 'An error has occurred, contact the administrator.'})
+            return response.status(400).json({ ok: false, message: 'An error has occurred, contact the support.'})
         }
     },
 
@@ -85,7 +85,7 @@ module.exports = {
             await database.delete().where({ identifier, email: request.userEmail }).table('collects')
             return response.status(200).json({ ok: true, message: 'Collection successfully deleted!' })
         } catch (error) {
-            return response.status(400).json({ ok: false, message: 'An error has occurred, contact the administrator.'})
+            return response.status(400).json({ ok: false, message: 'An error has occurred, contact the support.'})
         }
 
     },
@@ -100,7 +100,7 @@ module.exports = {
             return response.status(200).json({ ok: true, message: 'All collection successfully deleted!' })
 
         } catch (error) {
-            return response.status(400).json({ ok: false, message: 'An error has occurred, contact the administrator.'})
+            return response.status(400).json({ ok: false, message: 'An error has occurred, contact the support.'})
             
         }
     },
@@ -116,7 +116,7 @@ module.exports = {
             return response.status(200).json({ ok: true, message: 'All collection successfully deleted!' })
 
         } catch (error) {
-            return response.status(400).json({ ok: false, message: 'An error has occurred, contact the administrator.'})
+            return response.status(400).json({ ok: false, message: 'An error has occurred, contact the support.'})
             
         }
     },
@@ -132,7 +132,7 @@ module.exports = {
             return response.status(200).json({ ok: true, message: 'All collection successfully deleted!' })
 
         } catch (error) {
-            return response.status(400).json({ ok: false, message: 'An error has occurred, contact the administrator.'})
+            return response.status(400).json({ ok: false, message: 'An error has occurred, contact the support.'})
             
         }
     }

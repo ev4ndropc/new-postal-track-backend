@@ -5,6 +5,10 @@ const jwt = require('jsonwebtoken')
 const database = require('../database')
 const authConfig = require('../config/auth.json')
 
+const { sendToQueue } = require('../helpers/Queue')
+require('../helpers/Worker/EmailWorker')
+
+
 function generateToken(params = {} ) {
   return jwt.sign(params, authConfig.secret, {
     expiresIn: 86400,
@@ -33,6 +37,8 @@ module.exports = {
 
     const avatar = `default-avatar${Math.floor(Math.random() * (4 - 1)) + 1}.png`
 
+    const user_token = v4()
+
     database.insert({
       name: name.charAt(0).toUpperCase() + name.slice(1),
       email,
@@ -41,13 +47,16 @@ module.exports = {
       avatar,
       is_admin: 2,
       balance: 0,
-      user_token: v4()
+      user_token
     })
     .into('users')
-    .then(result => response.status(200).json({ ok: true, message: 'Account created successfully!', token: generateToken({ id: result.id, email: email }) }))
+    .then(result => {
+      sendToQueue('sent_active_email', user_token)
+      return response.status(200).json({ ok: true, message: 'Account created successfully!', token: generateToken({ id: result.id, email: email, token: user_token }) })
+    })
     .catch(err => {
       console.log(err)
-      return response.status(400).json({ ok: false, message: 'An error has occurred, contact the administrator!' })
+      return response.status(400).json({ ok: false, message: 'An error has occurred, contact the support!' })
     })
   },
 

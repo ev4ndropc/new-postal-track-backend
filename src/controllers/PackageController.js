@@ -53,9 +53,41 @@ module.exports = {
         }
     },
     
+    async getPackageInfo(request, response) {
+        try {
+            const data = await database.select().where({ user_token: request.userToken }).table('codes')
+            var track_package = data.length
+            var limit_package = 50
+            var on_my_way_package = 0
+            var delivered_package = 0
+            
+            data.forEach(package => {
+                if(package.finished == 'n'){
+                    on_my_way_package++
+                }else{
+                    delivered_package++
+                }
+            })
+            
+            var info = {
+                track_package,
+                limit_package,
+                on_my_way_package,
+                delivered_package
+            }
+            
+            return response.status(200).json({ ok: true, info })
+            
+        } catch (error) {
+            console.log(error)
+            return response.status(400).json({ ok: false, message: 'An error has occurred, please try again later!' })
+            
+        }
+    },
+    
     async getPackage(request, response) {
         const { code } = request.query
-
+        
         try {
             const data = await database.select().table('codes').where({
                 code,

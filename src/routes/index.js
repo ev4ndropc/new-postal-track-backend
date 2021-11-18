@@ -29,6 +29,7 @@ routes.get('/whatsapp/get_qrcode/', Whatsapp.getQrCode)
 //Package Routes
 routes.post('/add/package', Auth, Package.addPackage)
 routes.get('/search/package', Auth, Package.searchPackage)
+routes.get('/package/info', Auth, Package.getPackageInfo)
 routes.get('/list/package', Auth, Package.listPackage)
 routes.get('/get/package', Auth, Package.getPackage)
 routes.put('/edit/package', Auth, Package.editPackage)
@@ -41,6 +42,9 @@ routes.get('/queue/get', Queue.autoTrackCode)
 
 // User Info Routes
 routes.get('/get/sales_channel', Auth, UserInfo.getSalesChannel) 
+routes.get('/get/user_info', Auth, UserInfo.getUserInfo) 
+routes.put('/edit/user_info', Auth, UserInfo.updateUserInfo)
+routes.put('/update/store_name', Auth, UserInfo.updateStoreName) 
 routes.post('/add/sales_channel', Auth, UserInfo.addSalesChannel) 
 
 // Collects Routes
